@@ -112,7 +112,15 @@ void nv21ToI420(jbyte *src_nv21_data, jint width, jint height, jbyte *src_i420_d
                        (uint8 *) src_i420_v_data, width >> 1,
                        width, height);
 }
-
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_libyuv_util_YuvUtil_NV21ToI420(JNIEnv *env, jclass type,
+                                         jbyteArray src_, jint width,jint height,
+                                         jbyteArray dst_){
+    jbyte *src = env->GetByteArrayElements(src_, NULL);
+    jbyte *dst = env->GetByteArrayElements(dst_, NULL);
+    nv21ToI420(src, width, height, dst);
+}
 extern "C"
 JNIEXPORT void JNICALL
 Java_com_libyuv_util_YuvUtil_compressYUV(JNIEnv *env, jclass type,
